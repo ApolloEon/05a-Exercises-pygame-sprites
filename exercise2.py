@@ -14,6 +14,8 @@ screen_size = (800,600)
 FPS = 60
 red = (255,0,0)
 black = (0,0,0)
+colors = [(134,142,150),(250,82,82),(230,73,128),(190,75,219),(121,80,242),(76,110,245),(34,138,230),(21,170,191),(18,184,134),(64,192,87),(130,201,30),(250,176,5),(253,126,20),(233,236,239),(255,236,153),(163,218,255)]
+
 
 class Block(pygame.sprite.Sprite):
 	def __init__(self, color, size, position, direction):
@@ -45,12 +47,15 @@ def main():
 	clock = pygame.time.Clock()
 
 	blocks = pygame.sprite.Group()
-	block = Block(red,(50,50),(200,200),(5,1))
-	blocks.add(block)
+	for b in range(1,random.randint(1,44)):
+		block = Block(random.choice(colors),(random.randint(2,50),random.randint(2,50)),(random.randint(100,200),random.randint(100,200)),(random.randint(-1,10),random.randint(-1,4)))
+		blocks.add(block)
+
 
 	while True:
 		clock.tick(FPS)
 		screen.fill(black)
+
 
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:

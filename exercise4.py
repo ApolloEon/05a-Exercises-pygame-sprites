@@ -29,12 +29,18 @@ class Block(pygame.sprite.Sprite):
 		self.rect = pygame.Rect((self.margin_x,self.margin_y,self.width,self.height))
 		self.image = pygame.Surface(self.rect.size).convert()
 		self.image.blit(self.sheet, (0,0), self.rect)	#from the sheet, grab the correct image
-		#self.image.set_colorkey(green)
+		self.image.set_colorkey(green)
 		
 		(self.rect.x,self.rect.y) = position
 		self.direction = direction
 
-	def update(self):
+		self.emotions = []
+		for e in range(1,5):
+			for f in range(1,3):
+				self.emotions.append(((48*e,55*f),(self.width,self.height)))
+
+
+	def update(self, mum):
 		(dx,dy) = self.direction
 		self.rect.x += dx
 		self.rect.y += dy
@@ -47,6 +53,9 @@ class Block(pygame.sprite.Sprite):
 			self.rect.bottom = 0
 		if self.rect.bottom < 0:
 			self.rect.top = HEIGHT
+		if mum % 10 == 0:
+
+			self.image.blit(self.sheet, (0, 0), random.choice(self.emotions))
 
 
 def main():
@@ -58,16 +67,19 @@ def main():
 	block = Block('sprite_sheet.png',(200,200),(5,1))
 	blocks.add(block)
 
+	sent = 0
+
 	while True:
 		clock.tick(FPS)
 		screen.fill(black)
+		sent += 1
 
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				pygame.quit()
 				sys.exit(0)
 
-		blocks.update()
+		blocks.update(sent)
 		blocks.draw(screen)
 		pygame.display.flip()
 

@@ -17,13 +17,18 @@ FPS = 60
 red = (255,0,0)
 black = (0,0,0)
 green = (0,255,0)
+white = (255,255,255)
+
+cwd = str(os.getcwd())
+file = cwd + "\Sprites\last-guardian-sprites"
+champs = os.listdir(file)
 
 class Block(pygame.sprite.Sprite):
 	def __init__(self, img, position, direction):
 		pygame.sprite.Sprite.__init__(self)
 		self.image = pygame.image.load(os.path.join('.', img)).convert()
 		self.rect = self.image.get_rect()
-		#self.image.set_colorkey(green)
+		self.image.set_colorkey(white)
 		(self.rect.x,self.rect.y) = position
 		self.direction = direction
 
@@ -48,8 +53,9 @@ def main():
 	clock = pygame.time.Clock()
 
 	blocks = pygame.sprite.Group()
-	block = Block('sprite.png',(200,200),(5,1))
-	blocks.add(block)
+	for b in range(1,random.randint(1,44)):
+		block = Block(file +"\\" +  random.choice(champs),(random.randint(100,200),random.randint(100,200)),(random.randint(-1,4),(random.randint(-1,5))))
+		blocks.add(block)
 
 	while True:
 		clock.tick(FPS)

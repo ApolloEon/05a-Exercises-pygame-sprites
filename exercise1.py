@@ -17,24 +17,24 @@ assert sys.version_info >= (3,4), 'This script requires at least Python 3.4' # r
 logging.basicConfig(level=logging.CRITICAL)
 logger = logging.getLogger(__name__)
 
-screen_size = (800,600)
-FPS = 60
-red = (255,0,0)
-black = (0,0,0)
+screen_size = (800,600) #Adds a window that will show the program
+FPS = 60 #The images being displayed on the screen will be going at a certain rate (60)
+red = (255,0,0) #Gives the color red that could be used
+black = (0,0,0) #"" black ""
 
-class Block(pygame.sprite.Sprite):
+class Block(pygame.sprite.Sprite): #Creats a "universe" so that defines what a block is
 	def __init__(self, position, direction):
-		pygame.sprite.Sprite.__init__(self)
-		self.image = pygame.Surface((50, 50))
-		self.image.fill(red)
-		self.rect = self.image.get_rect()
-		(self.rect.x,self.rect.y) = position
-		self.direction = direction
+		pygame.sprite.Sprite.__init__(self) #initiates the sprite
+		self.image = pygame.Surface((50, 50)) #
+		self.image.fill(red) #Makes the image appear red
+		self.rect = self.image.get_rect() #When creating the image, makes it rectangular
+		(self.rect.x,self.rect.y) = position #Gives the rectangle a position
+		self.direction = direction #Tell where to direct
 
-	def update(self):
+	def update(self): #defines what the code update will do
 		(dx,dy) = self.direction
-		self.rect.x += dx
-		self.rect.y += dy
+		self.rect.x += dx #Tells the different rectantgles to add x
+		self.rect.y += dy #"" "" add y
 		(WIDTH,HEIGHT) = screen_size
 		if self.rect.left > WIDTH:
 			self.rect.right = 0
